@@ -17,13 +17,27 @@ class AuthController extends Controller
         return Auth::user();
     }
 
+    public function darkmode($id)
+    {
+        $registro = User::find($id);
+        
+        if ($registro) {
+            $registro->darktheme = !$registro->darktheme;
+            $registro->save();
+            return response(200);
+        } else {
+            return response()->json(['message' => 'Registro não encontrado'], 404);
+        }
+    }
+
     public function register(Request $request)
     {
         try {
             return User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password'))
+                'password' => Hash::make($request->input('password')),
+                'darktheme' => false
             ]);
         } catch (Exception $e) {
             return response()->json([
