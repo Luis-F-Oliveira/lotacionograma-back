@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('darktheme');
+            $table->integer('access');
+            $table->string('office');
+            $table->string('capacity');
+            $table->boolean('first');
             $table->timestamps();
         });
     }

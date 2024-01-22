@@ -36,8 +36,12 @@ class AuthController extends Controller
             return User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-                'darktheme' => false
+                'password' => Hash::make(12345678),
+                'darktheme' => false,
+                'access' => $request->input('access'),
+                'office' => $request->input('office'),
+                'capacity' => $request->input('capacity'),
+                'first' => false
             ]);
         } catch (Exception $e) {
             return response()->json([
