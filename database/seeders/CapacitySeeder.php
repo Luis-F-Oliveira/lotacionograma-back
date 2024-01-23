@@ -4,18 +4,20 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
-class DatabaseSeeder extends Seeder
+class CapacitySeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            CapacitySeeder::class
+        DB::table('capacities')->insert([
+            'name' => Str::random(10)
         ]);
     }
 }
