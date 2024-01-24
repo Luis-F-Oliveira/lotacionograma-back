@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Office;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 
-class CapacitySeeder extends Seeder
+class OfficeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +15,6 @@ class CapacitySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('capacities')->insert([
-            'name' => Str::random(10)
-        ]);
+        Office::factory()->count(10)->create();
     }
 }
