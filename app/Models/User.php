@@ -16,10 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'darktheme',
-        'access',
-        'office',
-        'capacity',
+        'theme',
         'first'
     ];
 

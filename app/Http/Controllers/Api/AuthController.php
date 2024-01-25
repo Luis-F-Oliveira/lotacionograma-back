@@ -6,7 +6,6 @@ use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
 
@@ -28,26 +27,6 @@ class AuthController extends Controller
         } else {
             return response()->json(['message' => 'Registro não encontrado'], 404);
         }
-    }
-
-    public function register(Request $request)
-    {
-        try {
-            return User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make(12345678),
-                'darktheme' => false,
-                'access' => $request->input('access'),
-                'office' => $request->input('office'),
-                'capacity' => $request->input('capacity'),
-                'first' => false
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'error' => $e
-            ], 422);
-        }   
     }
 
     public function login(Request $request)

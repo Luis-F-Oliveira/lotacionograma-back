@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Office;
+use App\Models\Role;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class OfficeFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    protected $model = Office::class;
+    protected $model = Role::class;
     
     public function definition()
     {

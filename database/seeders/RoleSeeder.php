@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Office;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class OfficeSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class OfficeSeeder extends Seeder
      */
     public function run()
     {
-        Office::factory()->count(10)->create();
+        Role::factory()->count(10)->create();
     }
 }

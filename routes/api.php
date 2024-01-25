@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\OfficeController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,23 @@ use App\Http\Controllers\Api\OfficeController;
 |
 */
 
-Route::apiResource('offices', OfficeController::class);
+Route::apiResource('users', UserController::class);
+
+Route::apiResource('roles', RoleController::class);
+
+    // AUTH
 Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+        // AUTH_CONTROLLER
     Route::get('auth', [AuthController::class, 'auth']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::put('darkmode/{id}', [AuthController::class, 'darkmode']);
-    Route::apiResource('users', UserController::class);
+    Route::put('mode/{id}', [AuthController::class, 'theme']);
+
+        // USER_CONTROLLER
+
+
+        // CATEGORY_CONTROLLER
+    Route::apiResource('categories', CategoryController::class);
 });
