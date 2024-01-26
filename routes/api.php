@@ -23,6 +23,7 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
 
     // AUTH
+Route::get('index', [AuthController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {

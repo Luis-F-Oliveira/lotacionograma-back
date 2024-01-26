@@ -4,13 +4,30 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use App\Models\User;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        try {
+            $accounts = Account::with('user')->get();
+
+            return response()->json([
+                'data' => $accounts
+            ], 200);
+        } catch (Exception $e) {
+            return reponse()->json([
+                'error' => $e
+            ]);
+        }
+    }
+
     public function auth()
     {
         return Auth::user();
@@ -18,10 +35,10 @@ class AuthController extends Controller
 
     public function darkmode($id)
     {
-        $registro = User::find($id);
+        $registro = Account::find($id);
         
         if ($registro) {
-            $registro->darktheme = !$registro->darktheme;
+            $registro->theme = !$registro->theme;
             $registro->save();
             return response(200);
         } else {
@@ -31,21 +48,32 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        $credentials = $request->only('email', 'password');
+
+        $userEmail = $credentials['email'];
+        $user = User::where('email', $userEmail)->first();
+
+        if (!$user) {
             return response()->json([
-                'message' => 'Invalid Credentials!'
-            ], 401);
+                'error' => 'Usuário não encontrado!'
+            ], 404);
+        }
+
+        $userAccount = Account::where('user_id', $user->id)->first();
+
+        if (!$userAccount || !Hash::check($credentials['password'], $userAccount->password)) {
+            return response()->json([
+                'error' => 'Senha incorreta!'
+            ], 301);
         }
 
         try {
-            $user = Auth::user();
             $token = $user->createToken('token')->plainTextToken;
-    
             $cookie = cookie('jwt', $token, 60 * 24);
-    
+
             return response()->json([
                 'token' => $token,
-                'user' => $user
+                'user' => $userAccount
             ])->withCookie($cookie);
         } catch (Exception $e) {
             return response()->json([
