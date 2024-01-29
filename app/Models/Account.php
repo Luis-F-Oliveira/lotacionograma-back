@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -14,10 +15,18 @@ class Account extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'password'
+        'user_id',
+        'password',
+        'theme',
+        'first'
     ];
 
     protected $hidden = [
         'password'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

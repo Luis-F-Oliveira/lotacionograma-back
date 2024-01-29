@@ -19,17 +19,15 @@ use App\Http\Controllers\Api\CategoryController;
 */
 
 Route::apiResource('users', UserController::class);
-
 Route::apiResource('roles', RoleController::class);
 
     // AUTH
-Route::get('index', [AuthController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
-
+    
 Route::middleware('auth:sanctum')->group(function () {
-
+        
         // AUTH_CONTROLLER
-    Route::get('auth', [AuthController::class, 'auth']);
+    Route::apiResource('auth', AuthController::class);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::put('mode/{id}', [AuthController::class, 'theme']);
 

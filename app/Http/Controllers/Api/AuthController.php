@@ -28,12 +28,85 @@ class AuthController extends Controller
         }
     }
 
-    public function auth()
+    public function store(Request $request)
     {
-        return Auth::user();
+        try {
+            return Account::create([
+                'user_id' => $request->input('user_id'),
+                'password' => Hash::make(12345678),
+                'theme' => false,
+                'first' => false
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e
+            ], 400);
+        }
     }
 
-    public function darkmode($id)
+    public function show($id)
+    {
+        try {
+            $account = Account::with('user')->find($id);
+
+            return response()->json([
+                'data' => $account
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e
+            ], 400);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $account = Account::find($id);
+
+        if (!$account) {
+            return response()->json([
+                'error' => 'Conta não encontrada!'
+            ], 404);
+        }
+
+        try {
+            $account->password = Hash::make($request->input('password'));
+            $account->save();
+
+            return response()->json([
+                'success' => 'Senha alterada!'
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e
+            ], 400);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $account = Account::find($id);
+
+        if (!$account) {
+            return response()->json([
+                'error' => 'Conta não encontrada!'
+            ], 404);
+        }
+
+        try {
+            $account->delete();
+
+            return response()->json([
+                'success' => 'Conta deletada!'
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e
+            ], 400);
+        }
+    }
+
+    public function theme($id)
     {
         $registro = Account::find($id);
         
@@ -42,7 +115,9 @@ class AuthController extends Controller
             $registro->save();
             return response(200);
         } else {
-            return response()->json(['message' => 'Registro não encontrado'], 404);
+            return response()->json([
+                'message' => 'Registro não encontrado'
+            ], 404);
         }
     }
 
