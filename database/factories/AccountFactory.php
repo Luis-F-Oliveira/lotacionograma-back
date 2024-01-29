@@ -23,6 +23,7 @@ class AccountFactory extends Factory
                 return User::pluck('id')->random();
             },
             'password' => Hash::make(12345678),
+            'access' => $this->faker->numberBetween(1, 4),
             'theme' => false,
             'first' => false
         ];

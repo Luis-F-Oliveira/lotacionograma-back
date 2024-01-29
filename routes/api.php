@@ -25,7 +25,6 @@ Route::apiResource('roles', RoleController::class);
 Route::post('login', [AuthController::class, 'login']);
     
 Route::middleware('auth:sanctum')->group(function () {
-        
         // AUTH_CONTROLLER
     Route::apiResource('auth', AuthController::class);
     Route::post('logout', [AuthController::class, 'logout']);

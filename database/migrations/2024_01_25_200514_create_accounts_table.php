@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('password');
+            $table->integer('access');
             $table->boolean('theme');
             $table->boolean('first');
             $table->timestamps();

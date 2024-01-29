@@ -34,6 +34,7 @@ class AuthController extends Controller
             return Account::create([
                 'user_id' => $request->input('user_id'),
                 'password' => Hash::make(12345678),
+                'access' => $request->input('access'),
                 'theme' => false,
                 'first' => false
             ]);
@@ -71,6 +72,7 @@ class AuthController extends Controller
 
         try {
             $account->password = Hash::make($request->input('password'));
+            $account->first = $request->input('first');
             $account->save();
 
             return response()->json([
