@@ -22,7 +22,7 @@ class AuthController extends Controller
                 'data' => $accounts
             ], 200);
         } catch (Exception $e) {
-            return reponse()->json([
+            return response()->json([
                 'error' => $e
             ]);
         }
