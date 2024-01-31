@@ -17,7 +17,11 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('ability:moderator,admin')
-             ->only('index', 'store', 'show');
+             ->only('index', 'show');
+
+        $this->middleware('ability:moderator')
+             ->only('store', 'destroy');
+            
     }
 
     public function index()

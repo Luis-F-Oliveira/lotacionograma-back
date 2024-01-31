@@ -25,10 +25,14 @@ class UserController extends Controller
     {
         try {
             $user = User::where('matriculation', $id)->first();
-
+            if ($user) {
+                return response()->json([
+                    'user' => $user
+                ], 200);
+            }
             return response()->json([
-                'data' => $user
-            ], 200);
+                'error' => 'Servidor não encontrado!'
+            ], 404);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e
