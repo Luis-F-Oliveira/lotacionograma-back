@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use App\Models\User;
+use App\Models\Access;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('ability:moderator,admin')
+             ->only('index', 'store', 'show');
+    }
+
     public function index()
     {
         try {
@@ -141,11 +148,13 @@ class AuthController extends Controller
         if (!$userAccount || !Hash::check($credentials['password'], $userAccount->password)) {
             return response()->json([
                 'error' => 'Senha incorreta!'
-            ], 301);
+            ], 401);
         }
 
+        $access = Access::find($userAccount->access);
+
         try {
-            $token = $user->createToken('token')->plainTextToken;
+            $token = $userAccount->createToken('token', [$access->name])->plainTextToken;
             $cookie = cookie('jwt', $token, 60 * 24);
 
             return response()->json([

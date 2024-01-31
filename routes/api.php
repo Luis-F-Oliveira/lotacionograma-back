@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\TesteController;
 use App\Http\Controllers\Api\CategoryController;
 
 /*
@@ -32,4 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // CATEGORY_CONTROLLER
     Route::apiResource('categories', CategoryController::class);
+
+        // TEST_CONTROLLER
+    Route::get('teste', [TesteController::class, 'index'])->middleware('ability:moderator,admin');
 });

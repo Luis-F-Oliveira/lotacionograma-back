@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('accesses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('password');
-            $table->foreignId('access')->constrained('accesses');
-            $table->boolean('theme');
-            $table->boolean('first');
+            $table->string('name', 16);
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('accesses');
     }
 };

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Access;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,9 @@ class AccountFactory extends Factory
                 return User::pluck('id')->random();
             },
             'password' => Hash::make(12345678),
-            'access' => $this->faker->numberBetween(1, 4),
+            'access' => function () {
+                return Access::pluck('id')->random();
+            },
             'theme' => false,
             'first' => false
         ];
