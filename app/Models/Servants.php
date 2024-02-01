@@ -6,12 +6,14 @@ use App\Models\Staffing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Area extends Model
+class Servants extends Model
 {
     use HasFactory;
 
-    public function staffing()
+    public $timestamps = false;
+
+    public function GetAll()
     {
-        return $this->belongsTo(staffing::class);
+        return Staffing::with('user', 'role', 'department', 'areas')->get();
     }
 }

@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
     {
 
         return [
-            'name' => Str::random(10)
+            'name' => $this->faker->unique()->randomElement(['Coordenador', 'Diretor', 'Assessor', 'Gerente', 'Estagiário'])
         ];
     }
 }

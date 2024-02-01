@@ -23,7 +23,7 @@ class AreaFactory extends Factory
             'staffing_id' => function () {
                 return Staffing::pluck('id')->random();
             },
-            'type' => $this->faker->numberBetween(1, 2)
+            'type' => $this->faker->unique()->randomElement([1, 2])
         ];
     }
 }
