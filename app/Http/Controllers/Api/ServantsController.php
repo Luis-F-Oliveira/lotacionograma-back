@@ -15,7 +15,7 @@ class ServantsController extends Controller
             $servants = (new Servants())->GetAll();
 
             return response()->json([
-                'servants' => $servants
+                'data' => $servants
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -31,7 +31,17 @@ class ServantsController extends Controller
 
     public function show($id)
     {
-        //
+        try {
+            $servant = (new Servants())->FindWithAll($id);
+
+            return response()->json([
+                'data' => $servant
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e
+            ], 500);
+        }
     }
 
     public function update(Request $request, $id)

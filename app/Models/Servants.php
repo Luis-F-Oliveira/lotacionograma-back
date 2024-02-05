@@ -16,4 +16,9 @@ class Servants extends Model
     {
         return Staffing::with('user', 'role', 'department', 'areas')->get();
     }
+
+    public function FindWithAll($id)
+    {
+        return Staffing::with('user', 'role', 'department', 'areas')->find($id);
+    }
 }

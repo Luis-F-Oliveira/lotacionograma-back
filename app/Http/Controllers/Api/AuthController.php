@@ -41,6 +41,12 @@ class AuthController extends Controller
 
     public function store(Request $request)
     {
+        if (Account::where('user_id', $request->input('user_id'))->first()) {
+            return response()->json([
+                'message' => 'Usuário já cadastrado'
+            ], 406);
+        }
+
         try {
             return Account::create([
                 'user_id' => $request->input('user_id'),

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TesteController;
+use App\Http\Controllers\Api\AccessController;
 use App\Http\Controllers\Api\ServantsController;
 use App\Http\Controllers\Api\CategoryController;
 
@@ -19,25 +20,29 @@ use App\Http\Controllers\Api\CategoryController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-    // AUTH
-Route::post('login', [AuthController::class, 'login']);
     
+
+// AUTH
+Route::post('login', [AuthController::class, 'login']);
+
 Route::middleware('auth:sanctum')->group(function () {
         // AUTH_CONTROLLER
     Route::apiResource('auth', AuthController::class);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::put('mode/{id}', [AuthController::class, 'theme']);
-
+    
         // USER_CONTROLLER
     Route::apiResource('users', UserController::class);
-
+    
         // CATEGORY_CONTROLLER
     Route::apiResource('categories', CategoryController::class);
-
+    
         // SERVANTS_CONTROLLER
     Route::apiResource('servants', ServantsController::class);
-
+    
+        // ACCESS_CONTROLLER
+    Route::apiResource('accesses', AccessController::class);
+    
         // TEST_CONTROLLER
     Route::get('teste', [TesteController::class, 'index'])->middleware('ability:moderator,admin');
 });
