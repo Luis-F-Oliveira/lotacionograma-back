@@ -21,4 +21,9 @@ class Servants extends Model
     {
         return Staffing::with('user', 'role', 'department', 'areas')->find($id);
     }
+
+    public function FindWithOption($option, $value)
+    {
+        
+    }
 }

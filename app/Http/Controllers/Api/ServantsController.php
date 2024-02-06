@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class ServantsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('ability:admin,moderator')
+            ->only('store', 'update', 'destroy');
+    }
+
     public function index()
     {
         try {
@@ -52,5 +58,23 @@ class ServantsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        try {
+            $servant = (new Servants())->FindWithOption(
+                $request->input('option'),
+                $request->input('value')
+            );
+
+            return response()->json([
+                'data' => $servant
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e
+            ], 500);
+        }
     }
 }

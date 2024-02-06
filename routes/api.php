@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
         // SERVANTS_CONTROLLER
     Route::apiResource('servants', ServantsController::class);
+    Route::post('servants/search', [ServantsController::class, 'search']);
     
         // ACCESS_CONTROLLER
     Route::apiResource('accesses', AccessController::class);
