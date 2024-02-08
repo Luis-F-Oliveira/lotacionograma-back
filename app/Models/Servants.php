@@ -22,8 +22,10 @@ class Servants extends Model
         return Staffing::with('user', 'role', 'department', 'areas')->find($id);
     }
 
-    public function FindWithOption($option, $value)
+    public function FindWithColumn($fk, $id)
     {
-        
+        return Staffing::with('user', 'role', 'department', 'areas')
+            ->where($fk, $id)
+            ->first();
     }
 }
