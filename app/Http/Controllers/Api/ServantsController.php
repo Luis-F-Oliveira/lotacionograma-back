@@ -5,9 +5,11 @@ namespace App\Http\Controllers\api;
 use Exception;
 use App\Models\Area;
 use App\Models\Servants;
+use App\Exports\ServantsExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ServantsController extends Controller
 {
@@ -130,5 +132,15 @@ class ServantsController extends Controller
                 'error' => $e
             ], 500);
         }
+    }
+
+    public function upload()
+    {
+
+    }
+
+    public function download()
+    {
+        return Excel::download(new ServantsExport, 'servants.xlsx');
     }
 }

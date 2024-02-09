@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\CategoryController;
 
 // AUTH
 Route::post('login', [AuthController::class, 'login']);
+Route::get('servants/export', [ServantsController::class, 'download']);
 
 Route::middleware('auth:sanctum')->group(function () {
         // AUTH_CONTROLLER
